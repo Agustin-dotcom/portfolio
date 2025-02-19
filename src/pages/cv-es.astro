@@ -129,23 +129,21 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
   <div
     id="calamardo-container"
     class="
-      fixed bottom-5 right-0 z-50
-      flex flex-col items-center      /* flex en columna, centrado en X */
+      fixed bottom-5 right-0 z-10
+      flex flex-col items-center      /*,centrado en X */
       gap-3                           /* separa un poco cada elemento */
-      p-4                             /* algo de padding alrededor */
+      p-4                             
       transform translate-x-full
       transition-transform duration-700
       bg-transparent
     "
   >
-    <!-- Título/Texto -->
-    <p class="font-semibold text-base-content bg-base-100/50 px-2 py-1 rounded-md">
+    <p class="font-semibold text-base-content bg-base-100/70 px-2 py-1 rounded-md">
       ¿Quieres más información?
     </p>
+    
 
-    <!-- Botones -->
     <div class="flex space-x-2">
-      <!-- Botón "Show me!" -->
       <section
         class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
       >
@@ -157,7 +155,6 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
         </button>
       </section>
       
-      <!-- Botón "No, thanks" -->
       <section
         class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
       >
@@ -170,7 +167,6 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
       </section>
     </div>
 
-    <!-- GIF, centrado por estar en flex-col + items-center -->
     <img
       src="/Calamardo.gif"
       alt="Calamardo"
@@ -178,7 +174,6 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     />
   </div>
 
-  <!-- Script para el slide-in y la lógica de los botones -->
   <script is:client>
     window.addEventListener('load', () => {
       setTimeout(() => {
@@ -191,7 +186,7 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     });
 
     function respuestaSi() {
-      window.open("https://www.linkedin.com/in/javier-garcía-9328582b4/", "_blank");
+      window.open("https://www.linkedin.com/in/javier-garcía-9328582b4/", "_blank");
     }
 
     function respuestaNo() {
@@ -199,6 +194,7 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
       if (container) {
         container.style.display = 'none';
       }
-    }
-  </script>
+    }
+  </script>
+  
 </BaseLayout>
