@@ -127,74 +127,90 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
 
   <!-- Contenedor: fijado abajo a la derecha, inicialmente fuera de la pantalla (translate-x-full) -->
   <div
-    id="calamardo-container"
-    class="
-      fixed bottom-5 right-0 z-10
-      flex flex-col items-center      /*,centrado en X */
-      gap-3                           /* separa un poco cada elemento */
-      p-4                             
-      transform translate-x-full
-      transition-transform duration-700
-      bg-transparent
-    "
-  >
-    <p class="font-semibold text-base-content bg-base-100/70 px-2 py-1 rounded-md">
-      ¿Quieres más información?
-    </p>
+  id="calamardo-container"
+  class="
+    fixed bottom-5 right-0 z-10
+    flex flex-col items-center      /*,centrado en X */
+    gap-3                           /* separa un poco cada elemento */
+    p-4                             
+    transform translate-x-full
+    transition-transform duration-700
+    bg-transparent
+  "
+>
+  <p class="font-semibold text-base-content bg-base-100/70 px-2 py-1 rounded-md">
+    ¿Quieres más información?
+  </p>
+  
+
+  <div class="flex space-x-2">
+    <section
+      class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
+    >
+      <button
+        class="px-3 py-2 text-sm cursor-pointer inline-block"
+        onClick="respuestaSi()"
+      >
+        Sí, por favor
+      </button>
+    </section>
     
-
-    <div class="flex space-x-2">
-      <section
-        class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
+    <section
+      class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
+    >
+      <button
+        class="px-3 py-2 text-sm cursor-pointer inline-block"
+        onClick="respuestaNo()"
       >
-        <button
-          class="px-3 py-2 text-sm cursor-pointer inline-block"
-          onClick="respuestaSi()"
-        >
-          Sí, por favor
-        </button>
-      </section>
-      
-      <section
-        class="inline-block px-3 py-2 bg-base-100 rounded-lg shadow-md border border-base-400 hover:shadow-lg"
-      >
-        <button
-          class="px-3 py-2 text-sm cursor-pointer inline-block"
-          onClick="respuestaNo()"
-        >
-          No, gracias
-        </button>
-      </section>
-    </div>
-
-    <img
-      src="/Calamardo.gif"
-      alt="Calamardo"
-      class="w-[160px] h-auto"
-    />
+        No, gracias
+      </button>
+    </section>
   </div>
 
-  <script is:client>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        const container = document.getElementById('calamardo-container');
-        if (container) {
-          container.classList.remove('translate-x-full');
-          container.classList.add('translate-x-0');
-        }
-      }, 3000);
-    });
+  <model-viewer
+    src="/3DModels/BackedModel.glb"
+    alt="Mi modelo 3D"
+    camera-controls
+    autoplay
+    style="w-[160px] h-auto; --progress-bar-color: transparent;">
+</model-viewer>
+</div>
 
-    function respuestaSi() {
-      window.open("https://www.linkedin.com/in/javier-garcía-9328582b4/", "_blank");
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<script is:client>
+  function mostrarModal() {
+    const container = document.getElementById('calamardo-container');
+    if (container) {
+      container.classList.remove('translate-x-full');
+      container.classList.add('translate-x-0');
     }
+  }
 
-    function respuestaNo() {
-      const container = document.getElementById('calamardo-container');
-      if (container) {
-        container.style.display = 'none';
-      }
-    }
-  </script>
-  
+  function ocultarModal() {
+    const container = document.getElementById('calamardo-container');
+    if (container) {
+      container.style.display = 'none';
+    }
+  }
+
+  // Muestra el modal en la primera carga
+  window.addEventListener('load', () => {
+    setTimeout(mostrarModal, 1000);
+  });
+
+  // Muestra el modal en cada cambio de página en Astro (Astro carga las páginas con SPA (No se bienq ue significa, pero una vez cargada la página, no se recarga al cambiar de página))
+  document.addEventListener('astro:after-swap', () => {
+    setTimeout(mostrarModal, 1000);
+  });
+
+  function respuestaSi() {
+    window.open("https://www.linkedin.com/in/javier-garcia-tercero", "_blank");
+  }
+
+  function respuestaNo() {
+    ocultarModal();
+  }
+</script>
+    
 </BaseLayout>
